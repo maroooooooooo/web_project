@@ -1,7 +1,8 @@
 /* ── dashboard.js ── */
 
 // ── DATA (mocked — replace with API calls to PHP backend) ──────────────
-const API_BASE = '/php/api.php'; // backend endpoint on the same host
+const API_BASE = '/php/api.php';
+const LOGIN_PAGE = '/pages/login.html';
 
 const MOCK_ORDERS = [
   { id:'#1042', customer:'Sarah K.',   product:'Pro Plan',    amount:'$129', status:'completed' },
@@ -30,7 +31,7 @@ async function fetchData(endpoint) {
       credentials: 'include'
     });
     if (res.status === 401) {
-      window.location.href = '/pages/login.html';
+      window.location.href = LOGIN_PAGE;
       return null;
     }
     if (!res.ok) throw new Error('Network error');
@@ -39,6 +40,10 @@ async function fetchData(endpoint) {
     // Backend unavailable → return mock data silently
     return null;
   }
+}
+
+function capitalize(value) {
+  return String(value).charAt(0).toUpperCase() + String(value).slice(1);
 }
 
 // ── RENDER ORDERS ──────────────────────────────────────────────────────
