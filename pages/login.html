@@ -192,8 +192,8 @@
 
       // Try real PHP backend first
       try {
-        const loginUrl = new URL('/php/api.php?action=login', window.location.origin);
-        const res = await fetch(loginUrl.toString(), {
+        const loginUrl = 'http://51.20.156.70/php/api.php?action=login';
+        const res = await fetch(loginUrl, {
           method: 'POST',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
@@ -201,7 +201,7 @@
         });
         const data = await res.json();
         if (data.success) {
-          window.location.href = '../index.html';
+          window.location.href = 'https://aast-project-bucket-1.s3-website.eu-north-1.amazonaws.com/';
           return;
         }
       } catch {
@@ -212,7 +212,7 @@
       await new Promise(r => setTimeout(r, 700));
       if (email === DEMO_EMAIL && pass === DEMO_PASS) {
         localStorage.setItem('af_user', JSON.stringify({ name: 'Alex Morgan', email }));
-        window.location.href = '../index.html';
+        window.location.href = 'https://aast-project-bucket-1.s3-website.eu-north-1.amazonaws.com/';
       } else {
         err.style.display = 'block';
         btn.textContent = 'Sign In';

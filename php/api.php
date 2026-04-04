@@ -36,8 +36,15 @@ define('SECRET',  'change_this_secret_key_in_production');
 session_start();
 
 header('Content-Type: application/json');
-if (isset($_SERVER['HTTP_ORIGIN'])) {
-    header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+$allowed_origins = [
+    'https://aast-project-bucket-1.s3-website.eu-north-1.amazonaws.com',
+    'http://51.20.156.70',
+    'http://localhost'
+];
+
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowed_origins)) {
+    header('Access-Control-Allow-Origin: ' . $origin);
 } else {
     header('Access-Control-Allow-Origin: *');
 }
