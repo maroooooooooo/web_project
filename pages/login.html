@@ -192,8 +192,10 @@
 
       // Try real PHP backend first
       try {
-        const res = await fetch('../php/api.php?action=login', {
+        const loginUrl = new URL('/php/api.php?action=login', window.location.origin);
+        const res = await fetch(loginUrl.toString(), {
           method: 'POST',
+          credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password: pass })
         });

@@ -36,7 +36,12 @@ define('SECRET',  'change_this_secret_key_in_production');
 session_start();
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');          // Restrict in production!
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+} else {
+    header('Access-Control-Allow-Origin: *');
+}
+header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 

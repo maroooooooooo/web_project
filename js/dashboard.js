@@ -1,7 +1,7 @@
 /* ── dashboard.js ── */
 
 // ── DATA (mocked — replace with API calls to PHP backend) ──────────────
-const API_BASE = 'php/api.php'; // toggle to use real backend
+const API_BASE = '/php/api.php'; // backend endpoint on the same host
 
 const MOCK_ORDERS = [
   { id:'#1042', customer:'Sarah K.',   product:'Pro Plan',    amount:'$129', status:'completed' },
@@ -26,7 +26,13 @@ const LABELS_M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','N
 // ── FETCH HELPER ───────────────────────────────────────────────────────
 async function fetchData(endpoint) {
   try {
-    const res = await fetch(`${API_BASE}?action=${endpoint}`);
+    const res = await fetch(`${API_BASE}?action=${endpoint}`, {
+      credentials: 'include'
+    });
+    if (res.status === 401) {
+      window.location.href = '/pages/login.html';
+      return null;
+    }
     if (!res.ok) throw new Error('Network error');
     return await res.json();
   } catch {
