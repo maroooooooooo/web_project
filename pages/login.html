@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AdminFlow — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #6366f1;
+      --primary-light: rgba(99,102,241,.12);
+      --bg: #f5f6fa;
+      --surface: #fff;
+      --border: #e8eaef;
+      --text: #1a1d23;
+      --text-muted: #6b7280;
+      --radius: 14px;
+      --transition: .22s cubic-bezier(.4,0,.2,1);
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 900px;
+      max-width: 95vw;
+      background: var(--surface);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,.10);
+      animation: fadeUp .5s ease;
+    }
+    /* Left Panel */
+    .login-art {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-art::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      top: -80px; right: -80px;
+    }
+    .login-art::after {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.06);
+      bottom: 40px; left: -60px;
+    }
+    .art-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; display: flex; align-items: center; gap: 8px; }
+    .art-title { font-family: 'Playfair Display', serif; font-size: 2rem; line-height: 1.3; font-weight: 600; }
+    .art-sub { font-size: .9rem; opacity: .8; margin-top: 10px; line-height: 1.6; }
+    .art-stats { display: flex; gap: 24px; }
+    .art-stat h3 { font-size: 1.5rem; font-weight: 600; }
+    .art-stat p { font-size: .78rem; opacity: .7; margin-top: 2px; }
+    /* Right Panel */
+    .login-form-wrap {
+      padding: 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .form-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--text); margin-bottom: 6px; }
+    .form-sub { font-size: .88rem; color: var(--text-muted); margin-bottom: 32px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: .85rem; font-weight: 500; color: var(--text); margin-bottom: 7px; }
+    .input-wrap { position: relative; }
+    .input-wrap svg { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--text-muted); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+    .form-group input {
+      width: 100%;
+      padding: 11px 14px 11px 40px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      background: var(--bg);
+      font-family: inherit;
+      font-size: .9rem;
+      color: var(--text);
+      outline: none;
+      transition: border var(--transition), box-shadow var(--transition);
+    }
+    .form-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+    .form-row-between { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+    .remember { display: flex; align-items: center; gap: 7px; font-size: .85rem; color: var(--text-muted); cursor: pointer; }
+    .remember input { width: 15px; height: 15px; accent-color: var(--primary); }
+    .forgot { font-size: .85rem; color: var(--primary); text-decoration: none; font-weight: 500; }
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      letter-spacing: .02em;
+    }
+    .btn-login:hover { background: #4f52d4; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,.35); }
+    .login-error { background: #fee2e2; color: #991b1b; border-radius: 8px; padding: 10px 14px; font-size: .85rem; margin-bottom: 16px; display: none; }
+    .divider { text-align: center; color: var(--text-muted); font-size: .82rem; margin: 20px 0; position: relative; }
+    .divider::before, .divider::after { content:''; position: absolute; top: 50%; width: 42%; height: 1px; background: var(--border); }
+    .divider::before { left: 0; } .divider::after { right: 0; }
+    .signup-link { text-align: center; font-size: .85rem; color: var(--text-muted); margin-top: 20px; }
+    .signup-link a { color: var(--primary); font-weight: 500; text-decoration: none; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @media (max-width: 640px) {
+      .login-art { display: none; }
+      .login-wrap { grid-template-columns: 1fr; max-width: 440px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-art">
+      <div class="art-logo">⬡ AdminFlow</div>
+      <div>
+        <h2 class="art-title">Manage your business with confidence.</h2>
+        <p class="art-sub">Your all-in-one admin panel for analytics, users, orders and more.</p>
+      </div>
+      <div class="art-stats">
+        <div class="art-stat"><h3>3.8k</h3><p>Active users</p></div>
+        <div class="art-stat"><h3>$84k</h3><p>Monthly revenue</p></div>
+        <div class="art-stat"><h3>99.9%</h3><p>Uptime</p></div>
+      </div>
+    </div>
+    <div class="login-form-wrap">
+      <h2 class="form-title">Welcome back</h2>
+      <p class="form-sub">Sign in to your admin account</p>
+
+      <div class="login-error" id="loginError">Invalid email or password. Please try again.</div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Email address</label>
+          <div class="input-wrap">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input type="email" id="emailInput" placeholder="admin@company.com" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" id="passwordInput" placeholder="••••••••" required/>
+          </div>
+        </div>
+        <div class="form-row-between">
+          <label class="remember"><input type="checkbox"/> Remember me</label>
+          <a href="#" class="forgot">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn-login" id="loginBtn">Sign In</button>
+      </form>
+      <p class="signup-link">Don't have an account? <a href="signup.html">Create one</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Demo credentials (frontend only)
+    const DEMO_EMAIL = 'admin@adminflow.com';
+    const DEMO_PASS  = 'admin123';
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      const pass  = document.getElementById('passwordInput').value;
+      const btn   = document.getElementById('loginBtn');
+      const err   = document.getElementById('loginError');
+
+      btn.textContent = 'Signing in…';
+      btn.disabled = true;
+      err.style.display = 'none';
+
+      // Try real PHP backend first
+      try {
+        const res = await fetch('../php/api.php?action=login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pass })
+        });
+        const data = await res.json();
+        if (data.success) {
+          window.location.href = '../index.html';
+          return;
+        }
+      } catch {
+        // Backend unavailable — fall through to demo credentials
+      }
+
+      // Frontend demo login
+      await new Promise(r => setTimeout(r, 700));
+      if (email === DEMO_EMAIL && pass === DEMO_PASS) {
+        localStorage.setItem('af_user', JSON.stringify({ name: 'Alex Morgan', email }));
+        window.location.href = '../index.html';
+      } else {
+        err.style.display = 'block';
+        btn.textContent = 'Sign In';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

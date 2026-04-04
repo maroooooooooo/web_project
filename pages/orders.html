@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AdminFlow — Orders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><span class="logo-icon">⬡</span><span class="logo-text">AdminFlow</span></div>
+    <nav class="sidebar-nav">
+      <p class="nav-label">Main</p>
+      <a href="../index.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+      <a href="analytics.html" class="nav-item"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Analytics</a>
+      <a href="users.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Users</a>
+      <a href="orders.html" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Orders</a>
+      <p class="nav-label">Settings</p>
+      <a href="settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>Settings</a>
+      <a href="profile.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</a>
+    </nav>
+    <div class="sidebar-footer">
+      <img src="https://i.pravatar.cc/36?img=3" alt="avatar" class="avatar-sm"/>
+      <div><p class="user-name">Alex Morgan</p><p class="user-role">Super Admin</p></div>
+      <button class="logout-btn" onclick="window.location='login.html'"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="topbar-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Search orders…" id="orderSearch"/></div>
+      <div class="topbar-actions">
+        <div class="theme-toggle" id="themeToggle">☀️</div>
+        <img src="https://i.pravatar.cc/36?img=3" alt="avatar" class="avatar-sm"/>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="page-header">
+        <div><h1 class="page-title">Orders</h1><p class="page-sub">Manage and track all orders</p></div>
+        <button class="btn-primary" onclick="showToast('Orders exported!')">Export CSV</button>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-box"><h2>1,293</h2><p>Total Orders</p></div>
+        <div class="stat-box"><h2>847</h2><p>Completed</p></div>
+        <div class="stat-box"><h2>241</h2><p>Pending</p></div>
+        <div class="stat-box"><h2>205</h2><p>Cancelled</p></div>
+      </div>
+
+      <!-- Filter tabs -->
+      <div style="display:flex;gap:8px;margin-bottom:18px;">
+        <button class="tab active" onclick="filterOrders('all',this)">All</button>
+        <button class="tab" onclick="filterOrders('completed',this)">Completed</button>
+        <button class="tab" onclick="filterOrders('pending',this)">Pending</button>
+        <button class="tab" onclick="filterOrders('shipped',this)">Shipped</button>
+        <button class="tab" onclick="filterOrders('cancelled',this)">Cancelled</button>
+      </div>
+
+      <div class="table-card" style="max-width:100%">
+        <div class="card-header"><h3>Order List</h3></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Date</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="ordersFullBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="../js/dashboard.js"></script>
+  <script>
+    const ALL_ORDERS = [
+      { id:'#1042', customer:'Sarah K.',   product:'Enterprise Plan', date:'Apr 2, 2025', amount:'$499', status:'completed' },
+      { id:'#1041', customer:'James O.',   product:'Pro Plan',         date:'Apr 1, 2025', amount:'$129', status:'pending'   },
+      { id:'#1040', customer:'Mia R.',     product:'Basic Plan',       date:'Mar 30, 2025',amount:'$49',  status:'shipped'   },
+      { id:'#1039', customer:'Leo T.',     product:'Pro Plan',         date:'Mar 29, 2025',amount:'$129', status:'completed' },
+      { id:'#1038', customer:'Ava S.',     product:'Add-ons Bundle',   date:'Mar 28, 2025',amount:'$79',  status:'cancelled' },
+      { id:'#1037', customer:'Noah P.',    product:'Enterprise Plan',  date:'Mar 27, 2025',amount:'$499', status:'completed' },
+      { id:'#1036', customer:'Emma W.',    product:'Basic Plan',       date:'Mar 26, 2025',amount:'$49',  status:'pending'   },
+      { id:'#1035', customer:'Liam B.',    product:'Pro Plan',         date:'Mar 25, 2025',amount:'$129', status:'shipped'   },
+    ];
+
+    function renderOrders(list = ALL_ORDERS) {
+      document.getElementById('ordersFullBody').innerHTML = list.map(o => `
+        <tr>
+          <td><strong>${o.id}</strong></td>
+          <td>${o.customer}</td>
+          <td>${o.product}</td>
+          <td>${o.date}</td>
+          <td><strong>${o.amount}</strong></td>
+          <td><span class="status-badge status-${o.status}">${o.status.charAt(0).toUpperCase()+o.status.slice(1)}</span></td>
+          <td>
+            <button onclick="showToast('Viewing order ${o.id}')" style="background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;font-family:inherit;font-size:.78rem;color:var(--text)">View</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterOrders(status, btn) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      renderOrders(status === 'all' ? ALL_ORDERS : ALL_ORDERS.filter(o => o.status === status));
+    }
+
+    document.getElementById('orderSearch').addEventListener('input', e => {
+      const q = e.target.value.toLowerCase();
+      renderOrders(ALL_ORDERS.filter(o => o.id.includes(q) || o.customer.toLowerCase().includes(q) || o.product.toLowerCase().includes(q)));
+    });
+
+    renderOrders();
+  </script>
+</body>
+</html>

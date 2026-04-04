@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AdminFlow — Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><span class="logo-icon">⬡</span><span class="logo-text">AdminFlow</span></div>
+    <nav class="sidebar-nav">
+      <p class="nav-label">Main</p>
+      <a href="../index.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+      <a href="analytics.html" class="nav-item"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Analytics</a>
+      <a href="users.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Users</a>
+      <a href="orders.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Orders</a>
+      <p class="nav-label">Settings</p>
+      <a href="settings.html" class="nav-item active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a>
+      <a href="profile.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</a>
+    </nav>
+    <div class="sidebar-footer">
+      <img src="https://i.pravatar.cc/36?img=3" alt="avatar" class="avatar-sm"/>
+      <div><p class="user-name">Alex Morgan</p><p class="user-role">Super Admin</p></div>
+      <button class="logout-btn" onclick="window.location='login.html'"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="topbar-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Search…"/></div>
+      <div class="topbar-actions">
+        <div class="theme-toggle" id="themeToggle">☀️</div>
+        <img src="https://i.pravatar.cc/36?img=3" alt="avatar" class="avatar-sm"/>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="page-header">
+        <div><h1 class="page-title">Settings</h1><p class="page-sub">Manage your application preferences</p></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;">
+
+        <!-- Notifications -->
+        <div class="form-card">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:18px">Notifications</h3>
+          <div class="toggle-row">
+            <div><p class="toggle-label">Email alerts</p><p class="toggle-sub">Receive order & user emails</p></div>
+            <label class="switch"><input type="checkbox" checked onchange="showToast('Email alerts updated')"/><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div><p class="toggle-label">Push notifications</p><p class="toggle-sub">Browser push alerts</p></div>
+            <label class="switch"><input type="checkbox" onchange="showToast('Push notifications updated')"/><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div><p class="toggle-label">Weekly digest</p><p class="toggle-sub">Summary every Monday</p></div>
+            <label class="switch"><input type="checkbox" checked onchange="showToast('Weekly digest updated')"/><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div><p class="toggle-label">Security alerts</p><p class="toggle-sub">Login & access warnings</p></div>
+            <label class="switch"><input type="checkbox" checked onchange="showToast('Security alerts updated')"/><span class="slider"></span></label>
+          </div>
+        </div>
+
+        <!-- Appearance -->
+        <div class="form-card">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:18px">Appearance</h3>
+          <div class="form-group">
+            <label>Theme</label>
+            <select onchange="applyThemeFromSelect(this.value)" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:inherit;font-size:.9rem;">
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Language</label>
+            <select style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:inherit;font-size:.9rem;" onchange="showToast('Language saved')">
+              <option>English</option><option>Arabic</option><option>French</option><option>Spanish</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Timezone</label>
+            <select style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:inherit;font-size:.9rem;" onchange="showToast('Timezone saved')">
+              <option>UTC+0 — London</option><option>UTC+2 — Cairo</option><option>UTC-5 — New York</option><option>UTC+9 — Tokyo</option>
+            </select>
+          </div>
+          <button class="btn-primary" onclick="showToast('Appearance saved!')">Save Changes</button>
+        </div>
+
+        <!-- Security -->
+        <div class="form-card">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:18px">Security</h3>
+          <div class="form-group"><label>Current Password</label><input type="password" placeholder="••••••••"/></div>
+          <div class="form-group"><label>New Password</label><input type="password" placeholder="••••••••"/></div>
+          <div class="form-group"><label>Confirm Password</label><input type="password" placeholder="••••••••"/></div>
+          <button class="btn-primary" onclick="showToast('Password updated!')">Update Password</button>
+        </div>
+
+        <!-- API -->
+        <div class="form-card">
+          <h3 style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:18px">API & Integrations</h3>
+          <div class="form-group">
+            <label>API Key</label>
+            <div style="display:flex;gap:8px">
+              <input type="text" value="sk-af-••••••••••••••••2f9a" readonly style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:inherit;font-size:.88rem"/>
+              <button onclick="showToast('API key copied!')" style="padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:none;cursor:pointer;font-family:inherit;font-size:.82rem;color:var(--text);white-space:nowrap">Copy</button>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="showToast('New API key generated!')" style="background:#ef4444">⚠ Regenerate Key</button>
+          <p style="font-size:.78rem;color:var(--text-muted);margin-top:10px">Regenerating invalidates your current key immediately.</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="../js/dashboard.js"></script>
+  <script>
+    function applyThemeFromSelect(val) {
+      document.body.classList.toggle('dark', val === 'dark');
+      localStorage.setItem('theme', val);
+      showToast('Theme updated!');
+    }
+    // Sync select with saved theme
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') document.querySelector('select').value = 'dark';
+  </script>
+</body>
+</html>
