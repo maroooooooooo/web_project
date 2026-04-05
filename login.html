@@ -202,7 +202,7 @@
         const data = await res.json();
         if (data.success) {
           localStorage.setItem('af_user', JSON.stringify({ name: 'Alex Morgan', email }));
-          window.location.href = '../dashboard.html';
+          window.location.href = 'index.html';
           return;
         }
       } catch {
@@ -213,7 +213,7 @@
       await new Promise(r => setTimeout(r, 700));
       if (email === DEMO_EMAIL && pass === DEMO_PASS) {
         localStorage.setItem('af_user', JSON.stringify({ name: 'Alex Morgan', email }));
-        window.location.href = '../dashboard.html';
+        window.location.href = 'index.html';
       } else {
         err.style.display = 'block';
         btn.textContent = 'Sign In';
