@@ -24,19 +24,22 @@ const LABELS_W = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const LABELS_M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 // ── FETCH HELPER ───────────────────────────────────────────────────────
+// AFTER — only redirects on 401 if no local user exists ✅
 async function fetchData(endpoint) {
   try {
     const res = await fetch(`${API_BASE}?action=${endpoint}`, {
       credentials: 'include'
     });
     if (res.status === 401) {
-      window.location.href = LOGIN_PAGE;
-      return null;
+      // Only force logout if not using frontend demo login
+      if (!localStorage.getItem('af_user')) {
+        window.location.href = LOGIN_PAGE;
+      }
+      return null;  // silently fall back to mock data
     }
     if (!res.ok) throw new Error('Network error');
     return await res.json();
   } catch {
-    // Backend unavailable → return mock data silently
     return null;
   }
 }
