@@ -1,7 +1,7 @@
 /* ── dashboard.js ── */
 
 // ── DATA (mocked — replace with API calls to PHP backend) ──────────────
-const API_BASE = 'http://51.20.156.70/php/api.php';
+const API_BASE = 'https://51.20.156.70/php/api.php';
 const LOGIN_PAGE = 'https://aast-project-bucket-1.s3-website.eu-north-1.amazonaws.com/pages/login.html';
 const MOCK_ORDERS = [
   { id:'#1042', customer:'Sarah K.',   product:'Pro Plan',    amount:'$129', status:'completed' },
